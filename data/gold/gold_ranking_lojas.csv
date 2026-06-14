@@ -1,0 +1,13 @@
+loja_id,nome_loja,cidade,estado,regiao,tipo,total_vendas,total_margem,qtd_transacoes,ticket_medio,rank_vendas
+L005,Shopping Tijuca,Rio de Janeiro,RJ,Sudeste,Shopping,1177043.11,725040.11,14331,31.29,1
+L001,Shopping Ibirapuera,São Paulo,SP,Sudeste,Shopping,1138736.44,702272.44,14257,31.06,2
+L003,Shopping Eldorado,São Paulo,SP,Sudeste,Shopping,1135330.49,699421.59,14310,30.73,3
+L004,Barra Shopping,Rio de Janeiro,RJ,Sudeste,Shopping,1129127.11,695820.51,14142,30.94,4
+L006,Shopping Mueller,Curitiba,PR,Sul,Shopping,903529.53,556614.43,11159,31.43,5
+L008,Shopping Iguatemi POA,Porto Alegre,RS,Sul,Shopping,890328.61,548391.61,11216,30.72,6
+L002,Rua Oscar Freire,São Paulo,SP,Sudeste,Rua,868571.69,535035.89,11014,30.76,7
+L009,Shopping Recife,Recife,PE,Nordeste,Shopping,759360.0,467857.7,9330,31.22,8
+L010,Shopping Bela Vista,Salvador,BA,Nordeste,Shopping,730180.0,449829.9,9130,30.96,9
+L007,Rua XV de Novembro,Curitiba,PR,Sul,Rua,697017.17,429612.67,8744,30.92,10
+L011,Conjunto Nacional BSB,Brasília,DF,Centro-Oeste,Shopping,692265.05,426418.65,8702,31.17,11
+L012,Shopping Manaus,Manaus,AM,Norte,Shopping,576666.58,355536.48,7256,30.79,12
