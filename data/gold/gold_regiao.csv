@@ -1,0 +1,9 @@
+regiao,estado,nome_estado,total_vendas,total_margem,qtd_transacoes,ticket_medio
+Sudeste,SP,São Paulo,3142638.62,1936729.92,39581,30.86
+Sudeste,RJ,Rio de Janeiro,2306170.22,1420860.62,28473,31.12
+Sul,PR,Paraná,1600546.7,986227.1,19903,31.2
+Sul,RS,Rio Grande do Sul,890328.61,548391.61,11216,30.72
+Nordeste,PE,Pernambuco,759360.0,467857.7,9330,31.22
+Nordeste,BA,Bahia,730180.0,449829.9,9130,30.96
+Centro-Oeste,DF,Distrito Federal,692265.05,426418.65,8702,31.17
+Norte,AM,Amazonas,576666.58,355536.48,7256,30.79
