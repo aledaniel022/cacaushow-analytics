@@ -1,0 +1,13 @@
+id,nome,cidade,estado,regiao,tipo
+L001,Shopping Ibirapuera,São Paulo,SP,Sudeste,Shopping
+L002,Rua Oscar Freire,São Paulo,SP,Sudeste,Rua
+L003,Shopping Eldorado,São Paulo,SP,Sudeste,Shopping
+L004,Barra Shopping,Rio de Janeiro,RJ,Sudeste,Shopping
+L005,Shopping Tijuca,Rio de Janeiro,RJ,Sudeste,Shopping
+L006,Shopping Mueller,Curitiba,PR,Sul,Shopping
+L007,Rua XV de Novembro,Curitiba,PR,Sul,Rua
+L008,Shopping Iguatemi POA,Porto Alegre,RS,Sul,Shopping
+L009,Shopping Recife,Recife,PE,Nordeste,Shopping
+L010,Shopping Bela Vista,Salvador,BA,Nordeste,Shopping
+L011,Conjunto Nacional BSB,Brasília,DF,Centro-Oeste,Shopping
+L012,Shopping Manaus,Manaus,AM,Norte,Shopping
