@@ -1,0 +1,11 @@
+id,nome,categoria,linha,preco_base,custo_base
+P001,Trufa Belga Dark 200g,Trufas,Premium,45.9,18.0
+P002,Trufa Avelã ao Leite 200g,Trufas,Premium,42.9,17.0
+P003,Ovo de Páscoa 500g,Ovos,Premium,89.9,32.0
+P004,Ovo de Páscoa 250g,Ovos,Classic,49.9,18.0
+P005,Tablete Dark 70% 100g,Tabletes,Classic,12.9,4.5
+P006,Tablete Ao Leite 100g,Tabletes,Classic,10.9,3.8
+P007,Bombom Sortido Cx 300g,Bombons,Premium,38.9,14.0
+P008,Bombom Individual,Bombons,Classic,3.9,1.2
+P009,Kit Presente Namorados,Kits,Premium,120.0,45.0
+P010,Panetone Recheado 400g,Sazonais,Classic,35.9,13.0
