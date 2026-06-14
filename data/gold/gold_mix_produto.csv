@@ -1,0 +1,11 @@
+produto_id,nome,categoria,linha,faixa_preco,total_vendas,total_margem,qtd_vendida,qtd_transacoes,margem_media
+P001,Trufa Belga Dark 200g,Trufas,Premium,Médio,2246211.5,1342197.5,50223,19422,59.64
+P002,Trufa Avelã ao Leite 200g,Trufas,Premium,Médio,2128119.75,1263346.75,50869,19607,59.26
+P007,Bombom Sortido Cx 300g,Bombons,Premium,Médio,1911939.78,1206507.78,50388,19414,63.0
+P003,Ovo de Páscoa 500g,Ovos,Premium,Alto,1119042.76,704386.76,12958,5022,62.82
+P009,Kit Presente Namorados,Kits,Premium,Super Premium,992010.0,607665.0,8541,3376,61.1
+P005,Tablete Dark 70% 100g,Tabletes,Classic,Econômico,625086.66,401382.66,49712,19232,64.1
+P004,Ovo de Páscoa 250g,Ovos,Classic,Médio,602511.2,376449.2,12559,4920,62.36
+P006,Tablete Ao Leite 100g,Tabletes,Classic,Econômico,528203.22,339263.42,49721,19258,64.14
+P010,Panetone Recheado 400g,Sazonais,Classic,Médio,354955.18,220535.18,10340,3910,61.98
+P008,Bombom Individual,Bombons,Classic,Econômico,190075.73,130117.73,49965,19430,68.37
