@@ -27,9 +27,10 @@ def carregar_modelo():
     }
 
 def analise_sazonalidade(m):
-    """Vendas mensais com flag de datas especiais + comparativo ano anterior."""
-    df = m["fato"].merge(m["tempo"], on="sk_tempo")
-    mensal = df.groupby(["ano", "mes", "nome_mes", "is_pascoa", "is_natal",
+    """Vendas mensais POR REGIÃO com flags de datas especiais + comparativo YoY.
+    Granularidade: ano x mes x regiao — permite cruzar tempo com geografia."""
+    df = m["fato"].merge(m["tempo"], on="sk_tempo").merge(m["loja"], on="sk_loja")
+    mensal = df.groupby(["ano", "mes", "nome_mes", "regiao", "is_pascoa", "is_natal",
                           "is_dias_maes", "is_namorados", "is_data_especial"]).agg(
         total_vendas   = ("valor_total", "sum"),
         total_margem   = ("margem", "sum"),
@@ -39,30 +40,7 @@ def analise_sazonalidade(m):
     mensal["total_vendas"] = mensal["total_vendas"].round(2)
     mensal["total_margem"] = mensal["total_margem"].round(2)
 
-    # Comparativo ano anterior (YoY)
-    mensal_sorted = mensal.sort_values(["mes", "ano"])
-    mensal["vendas_ano_anterior"] = mensal_sorted.groupby("mes")["total_vendas"].shift(1).values
-    mensal["variacao_yoy_pct"] = (
-        (mensal["total_vendas"] - mensal["vendas_ano_anterior"])
-        / mensal["vendas_ano_anterior"] * 100
-    ).round(2)
-
-    return mensal
-
-def analise_sazonalidade_regiao(m):
-    """NOVA — Sazonalidade por região: permite cruzar tempo x geografia."""
-    df = m["fato"].merge(m["tempo"], on="sk_tempo").merge(m["loja"], on="sk_loja")
-    mensal = df.groupby(["ano", "mes", "nome_mes", "regiao",
-                          "is_pascoa", "is_natal", "is_data_especial"]).agg(
-        total_vendas   = ("valor_total", "sum"),
-        total_margem   = ("margem", "sum"),
-        qtd_transacoes = ("venda_id", "count"),
-    ).reset_index()
-    mensal["ticket_medio"] = (mensal["total_vendas"] / mensal["qtd_transacoes"]).round(2)
-    mensal["total_vendas"] = mensal["total_vendas"].round(2)
-    mensal["total_margem"] = mensal["total_margem"].round(2)
-
-    # YoY por região
+    # Comparativo ano anterior (YoY) por região
     mensal_sorted = mensal.sort_values(["regiao", "mes", "ano"])
     mensal["vendas_ano_anterior"] = mensal_sorted.groupby(["regiao", "mes"])["total_vendas"].shift(1).values
     mensal["variacao_yoy_pct"] = (
@@ -70,7 +48,7 @@ def analise_sazonalidade_regiao(m):
         / mensal["vendas_ano_anterior"] * 100
     ).round(2)
 
-    return mensal
+    return mensal.sort_values(["ano", "mes", "regiao"]).reset_index(drop=True)
 
 def analise_por_regiao(m):
     """Performance por região e estado — mantida igual."""
@@ -123,6 +101,21 @@ def analise_por_loja(m):
 
     return ranking
 
+def fato_detalhada(m):
+    """NOVA — Fato detalhada por dia/produto/loja para drill-through.
+    Granularidade fina para detalhar, leve para o Power BI."""
+    df = m["fato"].merge(m["tempo"][["sk_tempo","data","ano","mes","nome_mes"]], on="sk_tempo") \
+                  .merge(m["produto"][["sk_produto","nome","categoria"]], on="sk_produto") \
+                  .merge(m["loja"][["sk_loja","nome_loja","cidade","estado","regiao"]], on="sk_loja")
+    det = df.groupby(["data","ano","mes","nome_mes","regiao","estado","cidade",
+                      "nome_loja","nome","categoria"]).agg(
+        valor_total = ("valor_total","sum"),
+        margem      = ("margem","sum"),
+        quantidade  = ("quantidade","sum"),
+        qtd_vendas  = ("venda_id","count"),
+    ).round(2).reset_index()
+    return det
+
 def analise_pascoa(m):
     """Análise específica do período de Páscoa — mantida igual."""
     df = m["fato"].merge(m["tempo"], on="sk_tempo") \
@@ -139,19 +132,19 @@ if __name__ == "__main__":
     m = carregar_modelo()
 
     sazonalidade         = analise_sazonalidade(m)
-    sazonalidade_regiao  = analise_sazonalidade_regiao(m)
     regiao               = analise_por_regiao(m)
     mix_produto          = analise_mix_produto(m)
     lojas                = analise_por_loja(m)
     pascoa               = analise_pascoa(m)
+    detalhada            = fato_detalhada(m)
 
     # Gold Layer — nomes mantidos para não quebrar conexões Power BI
     sazonalidade.to_csv(        f"{GOLD_DIR}/gold_sazonalidade.csv",        index=False)
-    sazonalidade_regiao.to_csv( f"{GOLD_DIR}/gold_sazonalidade_regiao.csv", index=False)
     regiao.to_csv(              f"{GOLD_DIR}/gold_regiao.csv",              index=False)
     mix_produto.to_csv(         f"{GOLD_DIR}/gold_mix_produto.csv",         index=False)
     lojas.to_csv(               f"{GOLD_DIR}/gold_ranking_lojas.csv",       index=False)
     pascoa.to_csv(              f"{GOLD_DIR}/gold_analise_pascoa.csv",       index=False)
+    detalhada.to_csv(           f"{GOLD_DIR}/gold_vendas_detalhada.csv",    index=False)
 
     print("📊 TOP INSIGHTS\n")
     print("── Sazonalidade ──────────────────────────────")
@@ -171,7 +164,10 @@ if __name__ == "__main__":
     for _, r in regiao.head(3).iterrows():
         print(f"   {r['regiao']:15} R$ {r['total_vendas']:>12,.0f}")
 
-    print("\n── Nova tabela: sazonalidade por região ──────")
-    print(f"   {len(sazonalidade_regiao)} linhas geradas (ano x mês x região)")
+    print("\n── Sazonalidade agora por região ──────────────")
+    print(f"   {len(sazonalidade)} linhas (ano x mês x região)")
+
+    print("\n── Fato detalhada (drill-through) ─────────────")
+    print(f"   {len(detalhada):,} linhas (dia x loja x produto)")
 
     print("\n✅ Gold Layer v2 salvo em data/gold/\n")
