@@ -10,7 +10,7 @@
 
 ## 📊 Dashboard Power BI
 
-🔗 **[Acesse o dashboard online aqui](https://app.powerbi.com/groups/me/reports/70cf77c4-9bef-45a7-a635-c513bfbf87eb/8a319e4e15984d41c692?experience=power-bi)**
+🔗 **[Acesse o dashboard online aqui](https://app.powerbi.com/groups/me/reports/70cf77c4-9bef-45a7-a635-c513bfbf87eb/701b8649b0820701ce2a?experience=power-bi)**
 
 ---
 
